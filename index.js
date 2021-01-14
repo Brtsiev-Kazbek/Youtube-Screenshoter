@@ -23,17 +23,16 @@ const saveDownload = (url, fileName) => {
 };
 
 const createFilename = (channel, title, seconds) => {
-    return `${channel}-${title} (${new Date(seconds * 1000).toISOString().substr(11, 8)}).png`;
+    return `${channel} - ${title} (${new Date(seconds * 1000).toISOString().substr(11, 8)}).png`;
 }
 
 const capture = () => {
     let video = document.querySelector('video');
     let canvas = document.createElement('canvas')
     let ctx = canvas.getContext('2d')
-    let title = document.querySelector('.title .style-scope').innerText
+    let title = document.querySelector('.title.style-scope') ? document.querySelector('.title.style-scope')?.innerText : document.querySelector('.ytp-title-link.yt-uix-sessionlink')?.innerText
     let videoCurrentTime = video.currentTime
-    let channel = document.querySelector('.yt-simple-endpoint.yt-formatted-string').innerText
-
+    let channel = document.querySelector('.yt-simple-endpoint.yt-formatted-string') ? document.querySelector('.yt-simple-endpoint.yt-formatted-string')?.innerText : document.querySelector('.ytp-ce-channel-title.ytp-ce-link')?.innerHTML;
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
@@ -87,8 +86,9 @@ const captureOnKeys = (...codes) => {
 
   }
 
-  insertButton()
-  captureOnKeys(
-    "ControlLeft",
-    "KeyQ"
-  );
+
+setTimeout(insertButton, 2000)
+captureOnKeys(
+  "ControlLeft",
+  "KeyQ"
+);
