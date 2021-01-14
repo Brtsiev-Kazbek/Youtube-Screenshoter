@@ -22,8 +22,8 @@ const saveDownload = (url, fileName) => {
     return true;
 };
 
-const createFilename = (title, seconds) => {
-    return `${title} (${new Date(seconds * 1000).toISOString().substr(11, 8)}).png`;
+const createFilename = (channel, title, seconds) => {
+    return `${channel}-${title} (${new Date(seconds * 1000).toISOString().substr(11, 8)}).png`;
 }
 
 const capture = () => {
@@ -32,6 +32,7 @@ const capture = () => {
     let ctx = canvas.getContext('2d')
     let title = document.querySelector('.title .style-scope').innerText
     let videoCurrentTime = video.currentTime
+    let channel = document.querySelector('.yt-simple-endpoint.yt-formatted-string').innerText
 
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -40,7 +41,7 @@ const capture = () => {
 
     canvas.toBlob((blob) => {
         let link = URL.createObjectURL(blob)
-        saveDownload(link, createFilename(title, videoCurrentTime));
+        saveDownload(link, createFilename(channel, title, videoCurrentTime));
         createMiniature(link)
     }, "image/png");
 
