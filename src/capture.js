@@ -13,9 +13,6 @@ export const capture = () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    console.log(uploadInfo.querySelector('.yt-simple-endpoint.yt-formatted-string'))
-    console.log(uploadInfo)
-
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     canvas.toBlob((blob) => {
