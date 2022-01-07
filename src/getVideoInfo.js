@@ -26,12 +26,16 @@ const getElementText = (root, selectors) => {
  */
 const getVideoInfo = () => {
     const root = document.querySelector('#movie_player');
-    const channel = getElementText(root, [
+    const metaContentsRoot = document.querySelector('#meta-contents');
+    const title = getElementText(root, ['.ytp-title-link']);
+    let channel = getElementText(root, [
         '.ytp-ce-channel-title',
         '.iv-branding-context-name',
         '.ytp-title-expanded-title'
     ]);
-    const title = getElementText(root, ['.ytp-title-link']);
+    if (!channel && metaContentsRoot) {
+        channel = getElementText(metaContentsRoot, ['.ytd-channel-name a']);
+    }
     const currentTime = root?.querySelector('video')?.currentTime ?? 0;
 
     return { channel, title, currentTime };
